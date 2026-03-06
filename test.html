@@ -1,1 +1,447 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌸 Happy Women's Day 🌸</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ffeef8 0%, #fff0f5 50%, #ffe4ec 100%);
+            font-family: 'Noto Serif SC', 'PingFang SC', 'Microsoft YaHei', 'Hiragino Sans GB', 'SimSun', serif;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .header {
+            margin-bottom: 40px;
+        }
+
+        .date {
+            font-size: 1.2rem;
+            color: #d4508b;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+        }
+
+        .title {
+            font-size: 3rem;
+            color: #c94c8a;
+            text-shadow: 2px 2px 4px rgba(201, 76, 138, 0.2);
+            margin-bottom: 20px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: #e07dad;
+            font-style: italic;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        .flower-container {
+            position: relative;
+            margin: 50px auto;
+            width: 200px;
+            height: 200px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .flower {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .petal {
+            position: absolute;
+            width: 60px;
+            height: 80px;
+            background: linear-gradient(135deg, #ffb6c1 0%, #ff69b4 100%);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            transform-origin: center bottom;
+        }
+
+        .petal:nth-child(1) { transform: rotate(0deg) translateY(-40px); }
+        .petal:nth-child(2) { transform: rotate(45deg) translateY(-40px); }
+        .petal:nth-child(3) { transform: rotate(90deg) translateY(-40px); }
+        .petal:nth-child(4) { transform: rotate(135deg) translateY(-40px); }
+        .petal:nth-child(5) { transform: rotate(180deg) translateY(-40px); }
+        .petal:nth-child(6) { transform: rotate(225deg) translateY(-40px); }
+        .petal:nth-child(7) { transform: rotate(270deg) translateY(-40px); }
+        .petal:nth-child(8) { transform: rotate(315deg) translateY(-40px); }
+
+        .flower-center {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #ffd700 0%, #ffb347 100%);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+
+        .message-card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(201, 76, 138, 0.15);
+            margin: 40px 0;
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 1s ease-out 0.5s both;
+        }
+
+        .message-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #ff69b4, #ffb6c1, #ff69b4);
+        }
+
+        .message {
+            font-size: 1.2rem;
+            line-height: 2;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .highlight {
+            color: #c94c8a;
+            font-weight: bold;
+        }
+
+        .wishes-list {
+            text-align: left;
+            max-width: 500px;
+            margin: 30px auto;
+            padding: 0;
+            list-style: none;
+        }
+
+        .wishes-list li {
+            padding: 15px 0;
+            border-bottom: 1px dashed #ffc0cb;
+            display: flex;
+            align-items: center;
+            animation: slideIn 0.5s ease-out both;
+        }
+
+        .wishes-list li:nth-child(1) { animation-delay: 0.7s; }
+        .wishes-list li:nth-child(2) { animation-delay: 0.9s; }
+        .wishes-list li:nth-child(3) { animation-delay: 1.1s; }
+        .wishes-list li:nth-child(4) { animation-delay: 1.3s; }
+        .wishes-list li:nth-child(5) { animation-delay: 1.5s; }
+
+        .wish-icon {
+            font-size: 1.5rem;
+            margin-right: 15px;
+        }
+
+        .wish-text {
+            font-size: 1.1rem;
+            color: #666;
+        }
+
+        .hearts-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 20px;
+            animation: fall linear infinite;
+            opacity: 0.6;
+        }
+
+        .signature {
+            margin-top: 40px;
+            font-size: 1.3rem;
+            color: #c94c8a;
+            font-style: italic;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #ff69b4 0%, #c94c8a 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            margin-top: 30px;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(201, 76, 138, 0.3);
+        }
+
+        .button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(201, 76, 138, 0.4);
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+
+        @media (max-width: 600px) {
+            .title {
+                font-size: 2rem;
+            }
+            .subtitle {
+                font-size: 1.2rem;
+            }
+            .message-card {
+                padding: 25px;
+            }
+            .message {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hearts-container" id="hearts"></div>
+    
+    <div class="container">
+        <header class="header">
+            <p class="date">3月8日</p>
+            <h1 class="title">🌷 妇女节快乐 🌷</h1>
+            <p class="subtitle">致最美的你</p>
+        </header>
+
+        <div class="flower-container">
+            <div class="flower">
+                <div class="petal"></div>
+                <div class="petal"></div>
+                <div class="petal"></div>
+                <div class="petal"></div>
+                <div class="petal"></div>
+                <div class="petal"></div>
+                <div class="petal"></div>
+                <div class="petal"></div>
+                <div class="flower-center"></div>
+            </div>
+        </div>
+
+        <div class="message-card">
+            <p class="message">
+                在这个特别的日子里，<br>
+                向<span class="highlight">每一位伟大的女性</span>致以最真挚的祝福！<br><br>
+                你们是世界上最温柔的力量，<br>
+                是家庭的守护者，是梦想的追逐者，<br>
+                是用爱编织幸福的天使。
+            </p>
+
+            <ul class="wishes-list">
+                <li>
+                    <span class="wish-icon">💐</span>
+                    <span class="wish-text">愿你永远被爱包围，被温柔以待</span>
+                </li>
+                <li>
+                    <span class="wish-icon">✨</span>
+                    <span class="wish-text">愿你的每一天都充满阳光与欢笑</span>
+                </li>
+                <li>
+                    <span class="wish-icon">🌸</span>
+                    <span class="wish-text">愿你的美丽如花朵般绽放</span>
+                </li>
+                <li>
+                    <span class="wish-icon">💪</span>
+                    <span class="wish-text">愿你勇敢追逐每一个梦想</span>
+                </li>
+                <li>
+                    <span class="wish-icon">💖</span>
+                    <span class="wish-text">愿你永远健康、快乐、幸福</span>
+                </li>
+            </ul>
+
+            <p class="signature">—— 献给最美丽的你 💝</p>
+        </div>
+
+        <button class="button" onclick="createFireworks()">✨ 点击送上祝福 ✨</button>
+    </div>
+
+    <script>
+        // Create falling hearts
+        function createHeart() {
+            const heartsContainer = document.getElementById('hearts');
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = ['💕', '💗', '💖', '🌸', '🌺', '🌷', '💐'][Math.floor(Math.random() * 7)];
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            heart.style.fontSize = (Math.random() * 15 + 15) + 'px';
+            heartsContainer.appendChild(heart);
+
+            // Remove heart after animation completes (max animation duration is 7s: 3 random + 4 base)
+            setTimeout(() => {
+                heart.remove();
+            }, 7000);
+        }
+
+        // Create hearts periodically
+        setInterval(createHeart, 500);
+
+        // Create fireworks effect
+        function createFireworks() {
+            const colors = ['#ff69b4', '#ffb6c1', '#ff1493', '#db7093', '#ffc0cb'];
+            const button = document.querySelector('.button');
+            const rect = button.getBoundingClientRect();
+            
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => {
+                    const particle = document.createElement('div');
+                    particle.style.cssText = `
+                        position: fixed;
+                        left: ${rect.left + rect.width / 2}px;
+                        top: ${rect.top + rect.height / 2}px;
+                        width: 10px;
+                        height: 10px;
+                        background: ${colors[Math.floor(Math.random() * colors.length)]};
+                        border-radius: 50%;
+                        pointer-events: none;
+                        z-index: 1000;
+                    `;
+                    document.body.appendChild(particle);
+
+                    const angle = (Math.random() * 360) * Math.PI / 180;
+                    const velocity = Math.random() * 200 + 100;
+                    const dx = Math.cos(angle) * velocity;
+                    const dy = Math.sin(angle) * velocity;
+
+                    particle.animate([
+                        { transform: 'translate(0, 0) scale(1)', opacity: 1 },
+                        { transform: `translate(${dx}px, ${dy}px) scale(0)`, opacity: 0 }
+                    ], {
+                        duration: 1000,
+                        easing: 'ease-out'
+                    }).onfinish = () => particle.remove();
+                }, i * 20);
+            }
+
+            // Show a beautiful message
+            const message = document.createElement('div');
+            message.innerHTML = '🌹 祝你节日快乐！🌹';
+            message.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: linear-gradient(135deg, #ff69b4 0%, #c94c8a 100%);
+                color: white;
+                padding: 20px 40px;
+                border-radius: 15px;
+                font-size: 1.5rem;
+                z-index: 1001;
+                box-shadow: 0 10px 30px rgba(201, 76, 138, 0.4);
+                animation: popIn 0.5s ease-out;
+            `;
+            document.body.appendChild(message);
+
+            // Add animation style
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes popIn {
+                    0% { transform: translate(-50%, -50%) scale(0); }
+                    80% { transform: translate(-50%, -50%) scale(1.1); }
+                    100% { transform: translate(-50%, -50%) scale(1); }
+                }
+            `;
+            document.head.appendChild(style);
+
+            setTimeout(() => {
+                message.style.animation = 'fadeOut 0.5s ease-out forwards';
+                setTimeout(() => message.remove(), 500);
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
